@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const generateRandomGreetings = require("../helpers/randGreetings");
+const wikipedia = require("../helpers/wikipedia");
+
 const WhatsappCloudAPI = require("whatsappcloudapi_wrapper");
 
 const Whatsapp = new WhatsappCloudAPI({
@@ -64,6 +66,20 @@ router.post("/webhook", async (req, res) => {
             },
           ],
         });
+      }
+
+      if (typeOfMsg === "simple_button_message") {
+        let button_id = incomingMessage.button_reply.id;
+        if (button_id === "swift_summary") {
+          const summary = await wikipedia(incomingMessage.text);
+          await Whatsapp.sendImage({
+            recipientPhone,
+            url: summary.thumbnail.originalimage,
+            caption: summary.extract,
+          });
+        }
+
+        //add other dictionaries , urban dict and regular dict
       }
     }
 
