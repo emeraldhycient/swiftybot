@@ -13,6 +13,8 @@ app.get("/", (req, res) => {
 
 app.use("/bot", Webhook);
 
+app.use("*", (req, res) => res.status(404).send("404 Not Found"));
+
 const port = 1908;
 app.listen(process.env.PORT || port, () =>
   console.log(`Listening on port ${port}`)
