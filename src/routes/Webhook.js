@@ -58,7 +58,7 @@ router.post("/webhook", async (req, res) => {
             },
             {
               title: "Swift Urban Dictionary",
-              id: "swift_urban_dictionary",
+              id: "swift_urban",
             },
           ],
         });
