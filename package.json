@@ -1,0 +1,28 @@
+{
+    "name": "swift",
+    "version": "1.0.0",
+    "description": "a whatsapp bot to find meaning of words , question biography of things , objects or person",
+    "main": "main.js",
+    "scripts": {
+        "start": "nodemon main.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "bot",
+        "whatsapp",
+        "search",
+        "find",
+        "hycient",
+        "devloper",
+        "programming"
+    ],
+    "author": "igweze hycient",
+    "license": "ISC",
+    "dependencies": {
+        "dictionary-en": "^3.2.0",
+        "dotenv": "^16.0.1",
+        "express": "^4.18.1",
+        "whatsappcloudapi_wrapper": "^1.0.13",
+        "wikipedia": "^1.1.9"
+    }
+}
