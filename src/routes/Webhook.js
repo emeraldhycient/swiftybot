@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const generateRandomGreetings = require("../helpers/randGreetings");
 const WhatsappCloudAPI = require("whatsappcloudapi_wrapper");
+
 const Whatsapp = new WhatsappCloudAPI({
   accessToken: process.env.Meta_WA_accessToken,
   senderPhoneNumberId: process.env.Meta_WA_SenderPhoneNumberId,
@@ -45,7 +47,7 @@ router.post("/webhook", async (req, res) => {
 
       if (typeOfMsg === "text_message") {
         await Whatsapp.sendSimpleButtons({
-          message: `Hey ${recipientName}, \nYou are speaking to a chatbot.\nWhat do you want to do next?`,
+          message: `${generateRandomGreetings()} ${recipientName}, \nYou are speaking to  swifty.\nWhat do you want to do next?`,
           recipientPhone: recipientPhone,
           listOfButtons: [
             {
