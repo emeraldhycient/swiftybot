@@ -82,7 +82,7 @@ router.post("/webhook", async (req, res) => {
         } else if (selectedbyuser === "swift_summary") {
           summary = await wikipedia(incomingMessage.text.body);
           let text = `_Title_: *${summary.title.trim()}*\n\n\n`;
-          text += `_Description_: ${summary.extract()}\n\n\n`;
+          text += `_Description_: ${summary.extract.trim()}\n\n\n`;
           await Whatsapp.sendImage({
             recipientPhone,
             url: summary.originalimage.source,
