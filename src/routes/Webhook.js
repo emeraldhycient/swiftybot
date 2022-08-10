@@ -99,18 +99,21 @@ router.post("/webhook", async (req, res) => {
       if (typeOfMsg === "simple_button_message") {
         let button_id = incomingMessage.button_reply.id;
         if (button_id === "swift_dictionary") {
+          Session.set(recipientPhone, "swift_dictionary");
           await Whatsapp.sendText({
             recipientPhone,
             message: "what do you need meaning to ? e.g swift,book",
           });
         }
         if (button_id === "swift_summary") {
+          Session.set(recipientPhone, "swift_summary");
           await Whatsapp.sendText({
             recipientPhone,
             message: "what do you need summary to ? e.g swift,book",
           });
         }
         if (button_id === "swift_urban") {
+          Session.set(recipientPhone, "swift_urban");
           await Whatsapp.sendText({
             recipientPhone,
             message: "which slang do you want defined ? lmao",
