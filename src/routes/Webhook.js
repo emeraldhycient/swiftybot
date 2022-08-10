@@ -11,8 +11,6 @@ const Whatsapp = new WhatsappCloudAPI({
   WABA_ID: process.env.Meta_WA_businessId,
 });
 
-let sessions;
-
 router.get("/webhook", async (req, res) => {
   try {
     console.log("GET: Someone is pinging me!");
@@ -37,8 +35,9 @@ router.get("/webhook", async (req, res) => {
   }
 });
 
+const Session = new Map();
+
 router.post("/webhook", async (req, res) => {
-  sessions = req.session;
   try {
     console.log("POST: Someone is pinging me!");
     let data = Whatsapp.parseMessage(req.body);
@@ -51,7 +50,9 @@ router.post("/webhook", async (req, res) => {
       let message_id = incomingMessage.message_id; // extract the message id
 
       if (typeOfMsg === "text_message") {
-        if (sessions.lastpick === undefined) {
+        if (!Session.get(recipientPhone)) {
+          Session.set(recipientPhone, "");
+
           await Whatsapp.sendSimpleButtons({
             message: `${generateRandomGreetings()} ${recipientName}, \nYou are speaking to  swifty.\nWhat do you want to do next?`,
             recipientPhone: recipientPhone,
@@ -70,33 +71,46 @@ router.post("/webhook", async (req, res) => {
               },
             ],
           });
-        } else {
+        }
+
+        let selectedbyuser = Session.get(recipientPhone);
+        if (selectedbyuser === "swift_dictionary") {
           await Whatsapp.sendText({
             recipientPhone,
-            message: `your last pick was ${sessions.lastpick}`,
+            message: `so you picked ${selectedbyuser}`,
           });
-          sessions.lastpick = undefined;
+        } else if (selectedbyuser === "swift_summary") {
+          await Whatsapp.sendText({
+            recipientPhone,
+            message: `so you picked ${selectedbyuser}`,
+          });
+        } else if (selectedbyuser === "swift_urban") {
+          await Whatsapp.sendText({
+            recipientPhone,
+            message: `so you picked ${selectedbyuser}`,
+          });
         }
+
+        //empty session
+
+        Session.set(recipientPhone, "");
       }
 
       if (typeOfMsg === "simple_button_message") {
         let button_id = incomingMessage.button_reply.id;
         if (button_id === "swift_dictionary") {
-          sessions.lastpick = "swift_dictionary";
           await Whatsapp.sendText({
             recipientPhone,
             message: "what do you need meaning to ? e.g swift,book",
           });
         }
         if (button_id === "swift_summary") {
-          sessions.lastpick = "swift_summary";
           await Whatsapp.sendText({
             recipientPhone,
             message: "what do you need summary to ? e.g swift,book",
           });
         }
         if (button_id === "swift_urban") {
-          sessions.lastpick = "swift_urban";
           await Whatsapp.sendText({
             recipientPhone,
             message: "which slang do you want defined ? lmao",
