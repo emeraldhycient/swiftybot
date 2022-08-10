@@ -80,10 +80,13 @@ router.post("/webhook", async (req, res) => {
             message: `so you picked ${selectedbyuser}`,
           });
         } else if (selectedbyuser === "swift_summary") {
-          console.log(await wikipedia(incomingMessage.text.body));
-          await Whatsapp.sendText({
+          summary = await wikipedia(incomingMessage.text.body);
+          let text = `_Title_: *${summary.title.trim()}*\n\n\n`;
+          text += `_Description_: ${summary.extract()}\n\n\n`;
+          await Whatsapp.sendImage({
             recipientPhone,
-            message: `so you picked ${incomingMessage.text.body}`,
+            url: summary.originalimage.source,
+            caption: text,
           });
         } else if (selectedbyuser === "swift_urban") {
           await Whatsapp.sendText({
