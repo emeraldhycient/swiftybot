@@ -73,11 +73,18 @@ router.post("/webhook", async (req, res) => {
         if (button_id === "swift_summary") {
           const summary = wikipedia(incomingMessage.text);
           //console.log(summary);
-          await Whatsapp.sendImage({
-            recipientPhone,
-            url: summary.originalimage.source,
-            caption: summary.extract,
-          });
+          if (summary) {
+            await Whatsapp.sendImage({
+              recipientPhone,
+              url: summary.originalimage.source,
+              caption: summary.extract,
+            });
+          } else {
+            await Whatsapp.sendText({
+              recipientPhone,
+              message: "Sorry, I couldn't find anything on that",
+            });
+          }
         }
 
         //add other dictionaries , urban dict and regular dict
