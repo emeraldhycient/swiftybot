@@ -80,6 +80,7 @@ router.post("/webhook", async (req, res) => {
             message: `so you picked ${selectedbyuser}`,
           });
         } else if (selectedbyuser === "swift_summary") {
+          console.log(wikipedia(incomingMessage.body));
           await Whatsapp.sendText({
             recipientPhone,
             message: `so you picked ${selectedbyuser}`,
@@ -92,13 +93,13 @@ router.post("/webhook", async (req, res) => {
         }
 
         //empty session
-
         Session.set(recipientPhone, "");
       }
 
       if (typeOfMsg === "simple_button_message") {
         let button_id = incomingMessage.button_reply.id;
         if (button_id === "swift_dictionary") {
+          //set session to swift_dictionary
           Session.set(recipientPhone, "swift_dictionary");
           await Whatsapp.sendText({
             recipientPhone,
@@ -106,6 +107,7 @@ router.post("/webhook", async (req, res) => {
           });
         }
         if (button_id === "swift_summary") {
+          //set session to swift_summary
           Session.set(recipientPhone, "swift_summary");
           await Whatsapp.sendText({
             recipientPhone,
@@ -113,6 +115,7 @@ router.post("/webhook", async (req, res) => {
           });
         }
         if (button_id === "swift_urban") {
+          //set session to swift_urban
           Session.set(recipientPhone, "swift_urban");
           await Whatsapp.sendText({
             recipientPhone,
