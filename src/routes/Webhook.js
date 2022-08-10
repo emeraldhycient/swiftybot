@@ -71,7 +71,7 @@ router.post("/webhook", async (req, res) => {
       if (typeOfMsg === "simple_button_message") {
         let button_id = incomingMessage.button_reply.id;
         if (button_id === "swift_summary") {
-          const summary = wikipedia(incomingMessage.text);
+          const summary = wikipedia("Batman");
           //console.log(summary);
           if (summary) {
             await Whatsapp.sendImage({
