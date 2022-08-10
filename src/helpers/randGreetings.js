@@ -6,14 +6,14 @@ const generateRandomGreetings = () => {
     "Bonjour",
     "Ndewo",
     "Nnigba",
-    "good day",
-    "ogee te mii",
-    "my gee",
-    "howdy",
-    "how are you",
-    "how is it going",
-    "how is life",
-    "how is it going",
+    "Good day",
+    "Ogee te mii",
+    "My gee",
+    "Howdy",
+    "How are you",
+    "How is it going",
+    "How is life",
+    "How is it going",
   ];
   // random number between 0 and the length of the array
   const randomNumber = Math.floor(Math.random() * greetings.length);

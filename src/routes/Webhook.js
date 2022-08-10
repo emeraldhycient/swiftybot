@@ -74,7 +74,7 @@ router.post("/webhook", async (req, res) => {
           const summary = wikipedia(incomingMessage.text);
           await Whatsapp.sendImage({
             recipientPhone,
-            url: summary.thumbnail.originalimage,
+            url: summary.thumbnail.originalimage.source,
             caption: summary.extract,
           });
         }
