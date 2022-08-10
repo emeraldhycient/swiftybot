@@ -70,25 +70,23 @@ router.post("/webhook", async (req, res) => {
 
       if (typeOfMsg === "simple_button_message") {
         let button_id = incomingMessage.button_reply.id;
+        if (button_id === "swift_dictionary") {
+          await Whatsapp.sendText({
+            recipientPhone,
+            message: "what do you need meaning to ? e.g swift,book",
+          });
+        }
         if (button_id === "swift_summary") {
           await Whatsapp.sendText({
             recipientPhone,
-            message: "aaah my nipple",
+            message: "what do you need summary to ? e.g swift,book",
           });
-          /*const summary = wikipedia("Batman");
-          console.log(summary);
-          if (summary) {
-            await Whatsapp.sendImage({
-              recipientPhone,
-              url: summary.originalimage.source,
-              caption: summary.extract,
-            });
-          } else {
-            await Whatsapp.sendText({
-              recipientPhone,
-              message: "Sorry, I couldn't find anything on that",
-            });
-          }*/
+        }
+        if (button_id === "swift_urban") {
+          await Whatsapp.sendText({
+            recipientPhone,
+            message: "which slang do you want defined ? lmao",
+          });
         }
 
         //add other dictionaries , urban dict and regular dict
