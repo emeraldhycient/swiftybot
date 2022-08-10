@@ -72,9 +72,10 @@ router.post("/webhook", async (req, res) => {
         let button_id = incomingMessage.button_reply.id;
         if (button_id === "swift_summary") {
           const summary = wikipedia(incomingMessage.text);
+          //console.log(summary);
           await Whatsapp.sendImage({
             recipientPhone,
-            url: summary.thumbnail.originalimage.source,
+            url: summary.originalimage.source,
             caption: summary.extract,
           });
         }
