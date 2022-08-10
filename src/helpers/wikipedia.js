@@ -8,7 +8,7 @@ const wikipedia = async (query) => {
     //Response of type @wikiSummary - contains the intro and the main image
   } catch (error) {
     console.log(error);
-    return null;
+    return;
     //=> Typeof wikiError
   }
 };

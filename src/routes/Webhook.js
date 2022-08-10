@@ -71,8 +71,12 @@ router.post("/webhook", async (req, res) => {
       if (typeOfMsg === "simple_button_message") {
         let button_id = incomingMessage.button_reply.id;
         if (button_id === "swift_summary") {
-          const summary = wikipedia("Batman");
-          //console.log(summary);
+          await Whatsapp.sendText({
+            recipientPhone,
+            message: "aaah my nipple",
+          });
+          /*const summary = wikipedia("Batman");
+          console.log(summary);
           if (summary) {
             await Whatsapp.sendImage({
               recipientPhone,
@@ -84,7 +88,7 @@ router.post("/webhook", async (req, res) => {
               recipientPhone,
               message: "Sorry, I couldn't find anything on that",
             });
-          }
+          }*/
         }
 
         //add other dictionaries , urban dict and regular dict
