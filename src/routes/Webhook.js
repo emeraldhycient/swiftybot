@@ -83,7 +83,7 @@ router.post("/webhook", async (req, res) => {
           console.log(incomingMessage.body);
           await Whatsapp.sendText({
             recipientPhone,
-            message: `so you picked ${selectedbyuser}`,
+            message: `so you picked ${incomingMessage.body}`,
           });
         } else if (selectedbyuser === "swift_urban") {
           await Whatsapp.sendText({
