@@ -4,6 +4,7 @@ const generateRandomGreetings = require("../helpers/randGreetings");
 const wikipedia = require("../helpers/wikipedia");
 
 const WhatsappCloudAPI = require("whatsappcloudapi_wrapper");
+const dictionary = require("../helpers/dictionary");
 
 const Whatsapp = new WhatsappCloudAPI({
   accessToken: process.env.Meta_WA_accessToken,
@@ -75,9 +76,22 @@ router.post("/webhook", async (req, res) => {
 
         let selectedbyuser = Session.get(recipientPhone);
         if (selectedbyuser === "swift_dictionary") {
+          const meaning = dictionary(incomingMessage.text.body);
+          let text = `_Title_: *${meaning[0]?.word.trim()}*\n\n\n`;
+          {
+            meaning[0]?.meaning.noun.map((meaning) => {
+              text += `_Noun_: ${meaning.definition.trim()}\n\n\n`;
+              text += `_Example_: ${meaning.example.trim()}\n\n\n`;
+              {
+                meaning.synonyms.map((syn) => {
+                  text += `_synonyms_: ${syn.trim()}\n\n\n`;
+                });
+              }
+            });
+          }
           await Whatsapp.sendText({
             recipientPhone,
-            message: `so you picked ${selectedbyuser}`,
+            message: text,
           });
         } else if (selectedbyuser === "swift_summary") {
           summary = await wikipedia(incomingMessage.text.body);

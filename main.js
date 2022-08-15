@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 
+const dictionary = require("./src/helpers/dictionary");
 const Webhook = require("./src/routes/Webhook");
 
 app.use(express.json());
@@ -19,3 +20,5 @@ const port = 1908;
 app.listen(process.env.PORT || port, () =>
   console.log(`Listening on port ${port}`)
 );
+
+//dictionary();
