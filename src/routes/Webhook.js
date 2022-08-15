@@ -78,14 +78,14 @@ router.post("/webhook", async (req, res) => {
         if (selectedbyuser === "swift_dictionary") {
           const meaning = await dictionary(incomingMessage.text.body);
           let text = "";
-          text = `_Title_: *${meaning[0]?.word.trim()}*\n\n\n`;
+          text = `_Title_: *${meaning[0]?.word}*\n\n\n`;
           {
             meaning[0]?.meaning?.noun.map((item) => {
-              text += `_Noun_: ${item?.definition.trim()}\n\n\n`;
-              text += `_Example_: ${item?.example.trim()}\n\n\n`;
+              text += `_Noun_: ${item?.definition}\n\n\n`;
+              text += `_Example_: ${item?.example}\n\n\n`;
               {
                 item?.synonyms?.map((syn) => {
-                  text += `_synonyms_: ${syn.trim()}\n\n\n`;
+                  text += `_synonyms_: ${syn}\n\n\n`;
                 });
               }
             });
