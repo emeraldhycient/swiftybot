@@ -76,7 +76,7 @@ router.post("/webhook", async (req, res) => {
 
         let selectedbyuser = Session.get(recipientPhone);
         if (selectedbyuser === "swift_dictionary") {
-          const meaning = dictionary(incomingMessage.text.body);
+          const meaning = await dictionary(incomingMessage.text.body);
           let text = `_Title_: *${meaning[0]?.word.trim()}*\n\n\n`;
           {
             meaning[0]?.meaning.noun.map((meaning) => {
