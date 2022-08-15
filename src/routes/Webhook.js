@@ -80,11 +80,11 @@ router.post("/webhook", async (req, res) => {
           let text = "";
           text = `_Title_: *${meaning[0]?.word.trim()}*\n\n\n`;
           {
-            meaning[0]?.meaning?.noun.map((meaning) => {
-              text += `_Noun_: ${meaning?.definition.trim()}\n\n\n`;
-              text += `_Example_: ${meaning?.example.trim()}\n\n\n`;
+            meaning[0]?.meaning?.noun.map((item) => {
+              text += `_Noun_: ${item?.definition.trim()}\n\n\n`;
+              text += `_Example_: ${item?.example.trim()}\n\n\n`;
               {
-                meaning?.synonyms.map((syn) => {
+                item?.synonyms?.map((syn) => {
                   text += `_synonyms_: ${syn.trim()}\n\n\n`;
                 });
               }
