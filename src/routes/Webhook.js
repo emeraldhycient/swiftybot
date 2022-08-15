@@ -78,22 +78,19 @@ router.post("/webhook", async (req, res) => {
         if (selectedbyuser === "swift_dictionary") {
           const meaning = await dictionary(incomingMessage.text.body);
           let text = "";
-          if (meaning) {
-            text = `_Title_: *${meaning[0]?.word.trim()}*\n\n\n`;
-            {
-              meaning[0]?.meaning?.noun.map((meaning) => {
-                text += `_Noun_: ${meaning?.definition.trim()}\n\n\n`;
-                text += `_Example_: ${meaning?.example.trim()}\n\n\n`;
-                {
-                  meaning?.synonyms.map((syn) => {
-                    text += `_synonyms_: ${syn.trim()}\n\n\n`;
-                  });
-                }
-              });
-            }
-          } else {
-            text = "No meaning found";
+          text = `_Title_: *${meaning[0]?.word.trim()}*\n\n\n`;
+          {
+            meaning[0]?.meaning?.noun.map((meaning) => {
+              text += `_Noun_: ${meaning?.definition.trim()}\n\n\n`;
+              text += `_Example_: ${meaning?.example.trim()}\n\n\n`;
+              {
+                meaning?.synonyms.map((syn) => {
+                  text += `_synonyms_: ${syn.trim()}\n\n\n`;
+                });
+              }
+            });
           }
+
           await Whatsapp.sendText({
             recipientPhone,
             message: text,
