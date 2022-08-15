@@ -79,7 +79,7 @@ router.post("/webhook", async (req, res) => {
           const meaning = await dictionary(incomingMessage.text.body);
           let text = "";
           if (meaning) {
-            let text = `_Title_: *${meaning[0]?.word.trim()}*\n\n\n`;
+            text = `_Title_: *${meaning[0]?.word.trim()}*\n\n\n`;
             {
               meaning[0]?.meaning.noun.map((meaning) => {
                 text += `_Noun_: ${meaning.definition.trim()}\n\n\n`;
