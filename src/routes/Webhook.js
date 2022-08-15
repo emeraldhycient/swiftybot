@@ -5,6 +5,7 @@ const wikipedia = require("../helpers/wikipedia");
 
 const WhatsappCloudAPI = require("whatsappcloudapi_wrapper");
 const dictionary = require("../helpers/dictionary");
+const Urban = require("../helpers/urban");
 
 const Whatsapp = new WhatsappCloudAPI({
   accessToken: process.env.Meta_WA_accessToken,
@@ -90,7 +91,6 @@ router.post("/webhook", async (req, res) => {
               }
             });
           }
-
           await Whatsapp.sendText({
             recipientPhone,
             message: text,
@@ -105,9 +105,14 @@ router.post("/webhook", async (req, res) => {
             caption: text,
           });
         } else if (selectedbyuser === "swift_urban") {
+          const slang = await Urban(incomingMessage.text.body);
+          let text = "";
+          text = `_Title_: *${slang[0]?.word}*\n\n\n`;
+          text += `_Definition_: ${slang[0]?.definition}\n\n\n`;
+          text += `_Example_: ${slang[0]?.example}\n\n\n`;
           await Whatsapp.sendText({
             recipientPhone,
-            message: `so you picked ${selectedbyuser}`,
+            message: text,
           });
         }
 

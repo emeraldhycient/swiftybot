@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 
 const dictionary = require("./src/helpers/dictionary");
+const Urban = require("./src/helpers/urban");
 const Webhook = require("./src/routes/Webhook");
 
 app.use(express.json());
@@ -22,3 +23,4 @@ app.listen(process.env.PORT || port, () =>
 );
 
 //dictionary();
+Urban("lol");
