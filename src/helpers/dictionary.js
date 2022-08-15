@@ -1,8 +1,8 @@
 const googleDictionaryApi = require("google-dictionary-api");
 
-const dictionary = async () => {
+const dictionary = async (word) => {
   try {
-    meaning = await googleDictionaryApi.search("price", "en");
+    meaning = await googleDictionaryApi.search(word, "en");
     console.log(meaning);
     return meaning;
   } catch (error) {
