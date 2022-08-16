@@ -2,8 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 
-const dictionary = require("./src/helpers/dictionary");
-const Urban = require("./src/helpers/urban");
+//const dictionary = require("./src/helpers/dictionary");
+//const Urban = require("./src/helpers/urban");
 const Webhook = require("./src/routes/Webhook");
 
 app.use(express.json());
